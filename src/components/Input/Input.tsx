@@ -1,16 +1,16 @@
 import { InputHTMLAttributes, useState } from 'react'
-import type { RegisterOptions, UseFormRegister } from 'react-hook-form'
+import type { FieldPath, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string
   classNameInput?: string
   classNameError?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register?: UseFormRegister<any>
   rules?: RegisterOptions
+  register?: UseFormRegister<TFieldValues>
+  name: FieldPath<TFieldValues>
 }
 
-const Input = ({
+function Input<TFieldValues extends FieldValues>({
   errorMessage,
   register,
   rules,
@@ -19,8 +19,8 @@ const Input = ({
   classNameInput = 'w-full outline-none border-b-2 py-2 text-sm focus:border-gray-300',
   classNameError = 'my-3 text-red-600 min-h-[0.9rem] text-[12px]',
   ...rest
-}: Props) => {
-  const resultRegister = register && name ? register(name, rules) : {}
+}: Props<TFieldValues>) {
+  const resultRegister = register && name ? register(name, rules as RegisterOptions<TFieldValues>) : {}
   const [openEye, setOpenEye] = useState(false)
 
   const toggle = () => {
@@ -32,7 +32,11 @@ const Input = ({
         className={classNameInput}
         {...resultRegister}
         {...rest}
-        type={(rest.type === 'password' && openEye && 'text') || (rest.type === 'password' && !openEye && 'password' || rest.type)}
+        type={
+          (rest.type === 'password' && openEye && 'text') ||
+          (rest.type === 'password' && !openEye && 'password') ||
+          rest.type
+        }
       />
       {rest.type === 'password' && openEye && (
         <svg

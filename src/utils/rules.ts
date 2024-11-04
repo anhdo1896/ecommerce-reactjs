@@ -63,24 +63,24 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
 const handleConfirmPasswordYup = (refString: string) => {
   return yup
     .string()
-    .required('This field is required')
-    .min(5, 'Email must be at least 5 characters')
-    .max(160, 'Email must not exceed 160 characters')
+    .required('Confirm Password  is required')
+    .min(5, 'Confirm Password must be at least 5 characters')
+    .max(160, 'Confirm Password must not exceed 160 characters')
     .oneOf([yup.ref(refString)], 'Passwords do not match')
 }
 
 export const schema = yup.object({
   email: yup
     .string()
-    .required('This field is required')
+    .required('Email is required')
     .email('Invalid email address')
     .min(5, 'Email must be at least 5 characters')
     .max(160, 'Email must not exceed 160 characters'),
   password: yup
     .string()
-    .required('This field is required')
-    .min(5, 'Email must be at least 5 characters')
-    .max(160, 'Email must not exceed 160 characters'),
+    .required('Password is required')
+    .min(5, 'Password must be at least 5 characters')
+    .max(160, 'Password must not exceed 160 characters'),
   confirm_password: handleConfirmPasswordYup('password'),
   price_min: yup
     .string()

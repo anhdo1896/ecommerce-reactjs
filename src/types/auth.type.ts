@@ -3,5 +3,6 @@ import { SuccessResponseApi } from './utils.type'
 
 export type AuthResponse = SuccessResponseApi<{
   token: string
+  refreshToken: string
   user: User
 }>

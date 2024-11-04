@@ -4,7 +4,6 @@ import { ChangePassword, User, UserDetail } from 'src/types/user.type'
 import { SuccessResponseApi } from 'src/types/utils.type'
 import { httpAuth } from 'src/utils/http'
 
-
 const authApi = {
   registerAccount(body: { email: string; password: string }) {
     return httpAuth.post<AuthResponse>(path.register, body)

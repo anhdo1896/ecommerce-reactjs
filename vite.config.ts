@@ -7,8 +7,9 @@ import { visualizer } from 'rollup-plugin-visualizer'
 export default defineConfig({
   plugins: [react(), visualizer()] as any,
   test: {
+    globals: true,
     environment: 'jsdom',
-    globals: true
+    setupFiles: path.resolve(__dirname, './vitest.setup.js')
   },
   server: {
     port: 3000

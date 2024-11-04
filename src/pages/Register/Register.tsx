@@ -6,13 +6,13 @@ import Input from 'src/components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import authApi from 'src/apis/auth.api'
-import omit  from 'lodash/omit'
+import omit from 'lodash/omit'
 import { isAxiosBadRequest } from 'src/utils/utils'
 import { ErrorResponseApi } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
 
-type FormData = Pick<Schema, 'email' | 'password' |'confirm_password'>
+type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['password', 'email', 'confirm_password'])
 
 export default function Register() {

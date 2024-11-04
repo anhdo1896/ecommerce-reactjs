@@ -5,8 +5,7 @@ import { AuthResponse } from 'src/types/auth.type'
 import { dispatchEventRemoveLS, getAccessTokenFromLS, removeAccessTokenFromLS, saveAccessTokenFromLS } from './auth'
 import localStorageConstants from 'src/constants/localStorage'
 import path from 'src/constants/path'
-
-//
+import config from 'src/constants/config'
 
 export class Http {
   instance: AxiosInstance
@@ -25,8 +24,6 @@ export class Http {
       (config) => {
         if (this.accessToken && config.headers) {
           config.headers.Authorization = `${this.accessToken}`
-          console.log(this.accessToken);
-          
           return config
         }
         return config
@@ -46,6 +43,7 @@ export class Http {
             localStorageConstants.profile,
             JSON.stringify((response.data as AuthResponse).data.user)
           )
+          httpGateway = new Http(config.baseUrlGateway).instance
         } else if (url === path.logout) {
           this.accessToken = ''
           removeAccessTokenFromLS(localStorageConstants.accessToken)
@@ -71,7 +69,7 @@ export class Http {
   }
 }
 
-const httpAuth = new Http('https://localhost:7002/api/auth').instance
-const httpGateway = new Http('https://localhost:7777/api').instance
+const httpAuth = new Http(config.baseUrlAuth).instance
+let httpGateway = new Http(config.baseUrlGateway).instance
 
 export { httpAuth, httpGateway }

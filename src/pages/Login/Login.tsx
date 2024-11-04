@@ -34,7 +34,6 @@ export default function Login() {
   })
 
   const onSubmit = handleSubmit((data) => {
-    console.log('aaaaaaaaaaaaaaaaaaa')
     loginAccountMutation.mutate(data, {
       onSuccess: (data) => {
         setIsAuthenticated(true)
@@ -135,10 +134,9 @@ export default function Login() {
       </form>
       <div className='font-semibold text-sm mt-5'>
         Don't have an account yet? &nbsp;
-        <Link className='text-sm text-primary hover:opacity-[0.6]' to={path.register} >
+        <Link className='text-sm text-primary hover:opacity-[0.6]' to={path.register}>
           Register here
         </Link>
-        
       </div>
     </div>
   )

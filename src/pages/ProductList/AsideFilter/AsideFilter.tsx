@@ -9,7 +9,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Schema, schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NonUndefinedField } from 'src/types/utils.type'
-import omit  from 'lodash/omit'
+import omit from 'lodash/omit'
 import RatingStars from 'src/components/RatingStars'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useTranslation } from 'react-i18next'
@@ -29,6 +29,7 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
     control,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
@@ -59,6 +60,7 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
   })
 
   const removeFilter = () => {
+    reset()
     navigate({
       pathname: path.home,
       search: createSearchParams(
