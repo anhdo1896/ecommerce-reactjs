@@ -11,6 +11,7 @@ import { isAxiosBadRequest } from 'src/utils/utils'
 import { ErrorResponseApi } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
+import Footer from 'src/components/Footer'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['password', 'email', 'confirm_password'])
@@ -53,9 +54,9 @@ export default function Register() {
   return (
     <div className='w-full max-h-[900px] max-w-[400px] rounded-lg border border-gray-200 bg-white shadow-md p-10'>
       <RegisterHeader />
-      <h1 className='text-xl font-bold text-black mt-5'>Create Account</h1>
+      <h1 className='text-xl font-bold text-black mt-5 text-center'>Create Account</h1>
       <div className='social-media grid grid-cols-2 gap-4 mt-3 text-[9px]'>
-        <button className='p-1 border border-gray-400 rounded-md flex justify-center items-center'>
+        {/* <button className='p-1 border border-gray-400 rounded-md flex justify-center items-center'>
           <svg className='w-[20px] h-[20px] mr-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>
             <path
               fill='#FFC107'
@@ -107,9 +108,9 @@ export default function Register() {
             />
           </svg>
           Sign in with Facebook
-        </button>
+        </button> */}
       </div>
-      <div className='text-center m-5'>- OR - </div>
+      {/* <div className='text-center m-5'>- OR - </div> */}
       <form onSubmit={onSubmit} noValidate>
         <Input type='email' name='email' placeholder='Email' register={register} errorMessage={errors.email?.message} />
         <Input

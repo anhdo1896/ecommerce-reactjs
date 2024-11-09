@@ -6,3 +6,8 @@ export type AuthResponse = SuccessResponseApi<{
   refreshToken: string
   user: User
 }>
+
+export type RefreshTokenResponse = SuccessResponseApi<{
+  token: string
+  refreshToken: string
+}>

@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useContext } from 'react'
+import { MobileContext } from 'src/contexts/mobile.context'
 
 interface Props {
   queryConfig: QueryConfig
@@ -14,6 +16,8 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
   const page = Number(queryConfig.pageIndex)
   const { sort = sortBy.name } = queryConfig
   const navigate = useNavigate()
+  const { isSort } = useContext(MobileContext)
+
 
   const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort'], undefined>) => {
     return sortByValue === sort || (sortByValue === sortBy.priceAsc && sort.includes('price'))
@@ -24,16 +28,21 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
       pathname: path.home,
       search: createSearchParams({
         ...queryConfig,
-        sort: sortByValue
+        sort: sortByValue,
+        pageIndex: '1'
       }).toString()
     })
   }
 
+
   return (
-    <div className='bg-gray-300/40 py-4 px-3'>
+    <div className={classNames('lg:static lg:block bg-gray-300 py-4 px-3', {
+      'w-full  fixed left-0 bottom-16 z-[100]  bg-gray-300': isSort,
+      'hidden': !isSort
+    })}>
       <div className='flex flex-wrap items-center gap-2 justify-between'>
         <div className='flex flex-wrap items-center gap-2'>
-          <div>Sort by</div>
+          <div className='hidden lg:block'>Sort by</div>
           <button
             className={classNames('h-8 px-4   apitalize text-sm text-center hover:bg-pink-500/80 hover:text-white', {
               'bg-pink-500 text-white': isActiveSortBy(sortBy.view),
@@ -81,7 +90,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             </option>
           </select>
         </div>
-        <div className='flex items-center'>
+        <div className='hidden lg:flex items-center'>
           <div className='mr-2'>
             <span className='text-pink-500'>{page}</span>/{pageSize}
           </div>
@@ -161,6 +170,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

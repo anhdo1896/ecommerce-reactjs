@@ -9,6 +9,10 @@ export function isAxiosBadRequest<FormError>(error: unknown): error is AxiosErro
   return isAxiosError(error) && error.response?.status === HttpStatusCode.BadRequest
 }
 
+export function isAxiosUnauthorized<UnauthorizedError>(error: unknown): error is AxiosError<UnauthorizedError> {
+  return isAxiosError(error) && error.response?.status === HttpStatusCode.Unauthorized
+}
+
 export function formatCurrency(value: number): string {
   return new Intl.NumberFormat('en-IN').format(value)
 }

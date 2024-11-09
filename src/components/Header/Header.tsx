@@ -9,11 +9,14 @@ import cartApi from 'src/apis/cart.api'
 import { formatCurrency } from 'src/utils/utils'
 import NavHeader from '../NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
+import { MobileContext } from 'src/contexts/mobile.context'
+import classNames from 'classnames'
 
 export default function Header() {
   const searchProducts = useSearchProducts()
   const MAX_SHOW_CART = 5
   const { isAuthenticated, profile } = useContext(AppContext)
+  const { isSearch } = useContext(MobileContext)
 
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchase'],
@@ -28,7 +31,7 @@ export default function Header() {
       <div className='container'>
         <NavHeader />
         <div className='grid grid-cols-12 mt-4 gap-4 items-end'>
-          <Link to={path.home} className='col-span-2 w-full'>
+          <Link to={path.home} className='col-span-10 lg:col-span-2 w-full'>
             <svg className='w-20 h-20' viewBox='0 0 514 486' fill='none' xmlns='http://www.w3.org/2000/svg'>
               <path
                 d='M255.776 132.178C249.211 132.178 242.914 134.786 238.271 139.429C233.628 144.071 231.02 150.368 231.02 156.934C231.02 163.5 233.628 169.797 238.271 174.44C242.914 179.083 249.211 181.691 255.776 181.691C262.342 181.691 268.639 179.083 273.282 174.44C277.925 169.797 280.533 163.5 280.533 156.934C280.533 150.368 277.925 144.071 273.282 139.429C268.639 134.786 262.342 132.178 255.776 132.178ZM278.179 29.5466C278.179 41.1354 268.765 108.196 257.177 108.196C245.588 108.196 236.204 41.1057 236.204 29.5466C236.49 24.1775 238.824 19.1227 242.726 15.4234C246.628 11.7241 251.8 9.66202 257.177 9.66202C262.553 9.66202 267.725 11.7241 271.627 15.4234C275.529 19.1227 277.863 24.1775 278.15 29.5466M236.204 284.858C236.204 273.24 245.588 206.209 257.177 206.209C268.765 206.209 278.15 273.268 278.15 284.858C278.15 290.421 275.94 295.755 272.007 299.688C268.074 303.622 262.739 305.831 257.177 305.831C251.614 305.831 246.28 303.622 242.346 299.688C238.413 295.755 236.204 290.421 236.204 284.858ZM362.369 82.0389C354.027 90.0826 299.39 130.092 291.287 121.781C283.184 113.469 324.802 60.0231 333.114 51.9497C337.141 48.2808 342.438 46.323 347.884 46.4909C353.329 46.6587 358.496 48.939 362.29 52.849C366.084 56.759 368.207 61.9919 368.211 67.44C368.214 72.8881 366.098 78.1239 362.309 82.0389M150.88 231.889C159.222 223.846 213.859 183.836 221.933 192.148C229.976 200.489 188.417 253.905 180.106 261.978C178.152 263.998 175.812 265.604 173.225 266.701C170.639 267.798 167.858 268.365 165.048 268.367C162.238 268.368 159.457 267.806 156.869 266.712C154.281 265.618 151.939 264.015 149.982 261.998C148.025 259.982 146.494 257.593 145.478 254.973C144.463 252.353 143.984 249.556 144.071 246.747C144.158 243.939 144.808 241.176 145.982 238.624C147.157 236.072 148.833 233.781 150.91 231.889M327.811 265.077C319.976 256.527 281.515 200.787 290.036 192.952C298.556 185.117 350.869 228.135 358.704 236.656C362.469 240.753 364.453 246.177 364.218 251.736C363.983 257.295 361.55 262.533 357.453 266.298C353.356 270.063 347.932 272.046 342.373 271.812C336.814 271.577 331.576 269.144 327.811 265.047M180.524 51.622C188.596 59.904 228.756 114.482 220.444 122.525C212.162 130.658 158.597 89.2484 150.494 80.9069C148.547 78.9401 147.009 76.6074 145.967 74.0434C144.926 71.4793 144.403 68.7345 144.427 65.9672C144.451 63.1999 145.023 60.4647 146.109 57.9194C147.196 55.3741 148.775 53.069 150.756 51.1368C152.738 49.2047 155.082 47.6837 157.654 46.6617C160.225 45.6396 162.974 45.1367 165.741 45.1818C168.508 45.2269 171.239 45.8191 173.776 46.9245C176.313 48.0298 178.606 49.6263 180.524 51.622ZM127.853 135.306C139.471 135.306 206.502 144.69 206.502 156.279C206.502 167.868 139.441 177.252 127.853 177.252C122.29 177.252 116.956 175.042 113.022 171.109C109.089 167.176 106.88 161.841 106.88 156.279C106.88 150.716 109.089 145.382 113.022 141.449C116.956 137.515 122.29 135.306 127.853 135.306ZM383.7 177.907C372.082 177.907 305.051 168.523 305.051 156.934C305.051 145.345 372.111 135.961 383.7 135.961C389.263 135.961 394.597 138.171 398.531 142.104C402.464 146.037 404.673 151.372 404.673 156.934C404.673 162.497 402.464 167.831 398.531 171.764C394.597 175.698 389.263 177.907 383.7 177.907Z'
@@ -61,32 +64,37 @@ export default function Header() {
               />
             </svg>
           </Link>
-          <form className='col-span-9' onSubmit={searchProducts.onSubmit}>
-            <div className='flex bg-white rounded-sm p-1'>
-              <input
-                type='text'
-                className='text-black px-3 py-2 border-none outline-none bg-transparent flex-grow'
-                placeholder='Search for products'
-                {...searchProducts.register('search')}
-              />
-              <button className='bg-pink-500 rounded-sm py-2 px-6 flex-shrink-0 hover:opacity-90'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='size-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-                  />
-                </svg>
-              </button>
-            </div>
-          </form>
+          <div className={classNames(' w-full lg:block lg:bg-transparent  md:col-span-9', {
+            'fixed left-0 bottom-16 z-[200] lg:static bg-gray-300': isSearch,
+            'hidden': !isSearch,
+          })}>
+            <form className='p-4 lg:p-0' onSubmit={searchProducts.onSubmit}>
+              <div className='flex bg-white rounded-sm p-1'>
+                <input
+                  type='text'
+                  className='text-black px-3 py-2 border-none outline-none bg-transparent flex-grow'
+                  placeholder='Search for products'
+                  {...searchProducts.register('search')}
+                />
+                <button className='bg-pink-500 rounded-sm py-2 px-6 flex-shrink-0 hover:opacity-90'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='size-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
           <div className='relative col-span-1 justify-self-end'>
             <Popover
               renderPopover={
@@ -162,6 +170,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

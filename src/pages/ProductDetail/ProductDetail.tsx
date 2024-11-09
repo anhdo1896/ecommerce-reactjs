@@ -77,20 +77,18 @@ export default function ProductDetail() {
   }
 
   const handleZoom = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const image = imageRef.current as HTMLImageElement
-    const { naturalHeight, naturalWidth, width, height } = image
-
-    const offsetX = event.pageX - (rect.x + window.scrollX)
-    const offsetY = event.pageY - (rect.y + window.scrollY)
-
-    const top = offsetY * (1 - (height * 2 < naturalHeight ? naturalHeight / 2 : naturalHeight + 400) / rect.height)
-    const left = offsetX * (1 - (width * 2 < naturalWidth ? naturalWidth / 2 : naturalWidth + 400) / rect.width)
-    image.style.width = naturalWidth > width * 2 ? naturalWidth / 3 + 'px' : naturalWidth + 200 + 'px'
-    image.style.height = naturalHeight > height * 2 ? naturalHeight / 3 + 'px' : naturalHeight + 200 + 'px'
-    image.style.maxWidth = 'unset'
-    image.style.top = top + 'px'
-    image.style.left = left + 'px'
+    // const rect = event.currentTarget.getBoundingClientRect()
+    // const image = imageRef.current as HTMLImageElement
+    // const { naturalHeight, naturalWidth, width, height } = image
+    // const offsetX = event.pageX - (rect.x + window.scrollX)
+    // const offsetY = event.pageY - (rect.y + window.scrollY)
+    // const top = offsetY * (1 - (height * 2 < naturalHeight ? naturalHeight / 2 : naturalHeight + 400) / rect.height)
+    // const left = offsetX * (1 - (width * 2 < naturalWidth ? naturalWidth / 2 : naturalWidth + 400) / rect.width)
+    // image.style.width = naturalWidth > width * 2 ? naturalWidth / 3 + 'px' : naturalWidth + 200 + 'px'
+    // image.style.height = naturalHeight > height * 2 ? naturalHeight / 3 + 'px' : naturalHeight + 200 + 'px'
+    // image.style.maxWidth = 'unset'
+    // image.style.top = top + 'px'
+    // image.style.left = left + 'px'
   }
 
   const resetZoom = () => {
@@ -160,9 +158,9 @@ export default function ProductDetail() {
     <div className='bg-gray-200 py-6'>
       <div className='container '>
         <div className='bg-white p-4 shadow'>
-          <div className='grid grid-cols-12 gap-9'>
-            <div className='col-span-5'>
-              <div className='relative w-full pt-[100%] shadow overflow-hidden cursor-zoom-in'>
+          <div className='grid grid-cols-12 md:gap-9'>
+            <div className='col-span-12 lg:col-span-5'>
+              <div className='relative w-full pt-[100%] shadow overflow-hidden'>
                 <img
                   src={activeImage}
                   alt={product.name}
@@ -227,7 +225,7 @@ export default function ProductDetail() {
                 </button>
               </div>
             </div>
-            <div className='col-span-7'>
+            <div className='col-span-12 md:col-span-7'>
               <h1 className='text-xl font-medium uppercase'>{product.name}</h1>
               <div className='mt-8 flex items-center'>
                 <div className='flex items-center'>
@@ -245,10 +243,10 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              {product.priceBeforeDiscount !== product.price ? (
+              {product.priceBeforeDiscount && product.priceBeforeDiscount !== product.price ? (
                 <div className='mt-8 flex items-center bg-gray-100 px-5 py-4'>
                   <div className='text-gray-500 line-through'>AUD{formatCurrency(product.priceBeforeDiscount)}</div>
-                  <div className='ml-3 text-3xl font-medium text-pink-500'>AUD{formatCurrency(product.price)}</div>
+                  <div className='ml-3 text-xl md:text-3xl font-medium text-pink-500'>AUD{formatCurrency(product.price)}</div>
                   <div className='ml-4 rounded-sm bg-pink-500 text-white px-1 py-[2px] text-xs font-semibold uppercase'>
                     {rateSale(product.priceBeforeDiscount, product.price)} sale
                   </div>
@@ -268,7 +266,7 @@ export default function ProductDetail() {
                   value={buyCount}
                   max={product.quantity}
                 />
-                <div className='ml-6 text-gray-500 '> {product.quantity} in stock</div>
+                <div className='ml-2 md:ml-6 text-sm text-gray-500 '> {product.quantity} in stock</div>
               </div>
 
               <div className='mt-8 flex items-center'>
@@ -292,7 +290,7 @@ export default function ProductDetail() {
                   </svg>
                   Add to the cart
                 </button>
-                <button className='mt-4 mx-6 px-5 py-3  bg-pink-500 text-white hover:bg-pink-400' onClick={buyNow}>
+                <button className='mt-4 mx-1 md:mx-6 px-5 py-3  bg-pink-500 text-white hover:bg-pink-400' onClick={buyNow}>
                   Buy now
                 </button>
               </div>
@@ -309,9 +307,9 @@ export default function ProductDetail() {
         </div>
       </div>
       <div className='container'>
-        <div className='mt-8 bg-white p-4'>
+        <div className='mt-8 bg-white p-2 md:p-4'>
           <div className='text-xl'>Similar products</div>
-          <div className='mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4'>
+          <div className='mt-6 grid grid-cols-2  lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4'>
             {productList &&
               productList.data.data.data.map((product) => (
                 <div className='col-span-1' key={product.id}>

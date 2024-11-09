@@ -13,6 +13,8 @@ import omit from 'lodash/omit'
 import RatingStars from 'src/components/RatingStars'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useTranslation } from 'react-i18next'
+import { useContext } from 'react'
+import { MobileContext } from 'src/contexts/mobile.context'
 
 interface Props {
   queryConfig: QueryConfig
@@ -25,6 +27,8 @@ const priceSchema = schema.pick(['price_min', 'price_max'])
 
 export default function AsideFilter({ queryConfig, categories, brands }: Props) {
   const { t } = useTranslation('home')
+  const { isFilter } = useContext(MobileContext)
+
   const {
     control,
     handleSubmit,
@@ -54,7 +58,8 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
       search: createSearchParams({
         ...queryConfig,
         priceMin: data.price_min,
-        priceMax: data.price_max
+        priceMax: data.price_max,
+        pageIndex: '1'
       }).toString()
     })
   })
@@ -70,7 +75,10 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
   }
 
   return (
-    <div className='py-4'>
+    <div className={classNames('lg:w-full bg-white lg:relative lg:block px-2 py-4 border-2 shadow-sm', {
+      'fixed w-[60%] left-0 top-0 bottom-16 z-[100] overflow-auto block': isFilter,
+      'hidden': !isFilter,
+    })}>
       <span className={classNames('flex items-center font-bold')}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -128,6 +136,7 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
                 pathname: path.home,
                 search: createSearchParams({
                   ...queryConfig,
+                  pageIndex: '1',
                   categoryId: category.id.toString()
                 }).toString()
               }}
@@ -223,7 +232,8 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
                 pathname: path.home,
                 search: createSearchParams({
                   ...queryConfig,
-                  brandId: brand.id.toString()
+                  brandId: brand.id.toString(),
+                  pageIndex: '1'
                 }).toString()
               }}
               className={classNames('relative px-3', {
@@ -287,7 +297,7 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
                 className='grow'
                 placeholder='AUD From'
                 classNameError='hidden'
-                classNameInput='p-1 outline-none w-full border boder-gray-300 focus:boder-gray-500 rounded-sm focus:shadow-md'
+                classNameInput='p-1 outline-none w-full border boder-gray-300 focus:boder-gray-500 rounded-sm focus:shadow-md bg-gray-100'
                 {...field}
                 onChange={(event) => {
                   field.onChange(event)
@@ -307,7 +317,7 @@ export default function AsideFilter({ queryConfig, categories, brands }: Props) 
                 className='grow'
                 placeholder='AUD To'
                 classNameError='hidden'
-                classNameInput='p-1 outline-none w-full boder-gray-300 focus:boder-gray-500 rounded-sm focus:shadow-md'
+                classNameInput='p-1 outline-none w-full border boder-gray-300 focus:boder-gray-500 rounded-sm focus:shadow-md bg-gray-100'
                 {...field}
                 onChange={(event) => {
                   field.onChange(event)

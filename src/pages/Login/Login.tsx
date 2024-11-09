@@ -56,8 +56,8 @@ export default function Login() {
   return (
     <div className='w-full max-h-[900px] max-w-[400px] rounded-lg border border-gray-200 bg-white shadow-md p-10'>
       <RegisterHeader />
-      <h1 className='text-xl font-bold text-black mt-5'>Login</h1>
-      <div className='social-media grid grid-cols-2 gap-4 mt-3 text-[9px]'>
+      <h1 className='text-xl font-bold text-black mt-5 text-center'>Login</h1>
+      {/* <div className='social-media grid grid-cols-2 gap-4 mt-3 text-[9px]'>
         <button className='p-1 border border-gray-400 rounded-md flex justify-center items-center'>
           <svg className='w-[20px] h-[20px] mr-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>
             <path
@@ -112,7 +112,7 @@ export default function Login() {
           Sign in with Facebook
         </button>
       </div>
-      <div className='text-center m-5'>- OR - </div>
+      <div className='text-center m-5'>- OR - </div> */}
       <form className='text-[13px]' onSubmit={onSubmit} noValidate>
         <Input type='email' name='email' placeholder='Email' register={register} errorMessage={errors.email?.message} />
         <Input

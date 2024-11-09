@@ -8,7 +8,9 @@ import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { AppContext } from 'src/contexts/app.context'
 import { ChangePassword as ChangePasswordType } from 'src/types/user.type'
+import { ErrorResponseApi } from 'src/types/utils.type'
 import { userSchema, UserSchema } from 'src/utils/rules'
+import { isAxiosBadRequest } from 'src/utils/utils'
 
 type FormData = Pick<UserSchema, 'newPassword' | 'currentPassword' | 'confirmPassword'>
 
@@ -29,6 +31,7 @@ export default function ChangePassword() {
   const {
     register,
     formState: { errors },
+    setError,
     handleSubmit
   } = methods
 
@@ -49,7 +52,17 @@ export default function ChangePassword() {
       if (res.data.isSuccess) {
         toast.success('Change password success')
       }
-    } catch (error) {}
+    } catch (error) {
+      
+        if (isAxiosBadRequest<ErrorResponseApi<FormData>>(error)) {
+          const formError = error.response?.data
+          if (formError) {
+            setError('confirmPassword', {
+              message: formError.message
+            })
+          }
+        }
+    }
   })
 
   return (

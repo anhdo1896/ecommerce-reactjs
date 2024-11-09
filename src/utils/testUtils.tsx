@@ -1,7 +1,3 @@
-import { screen, waitFor, waitForOptions } from '@testing-library/dom'
-import { expect } from 'vitest'
-import * as matchers from '@testing-library/jest-dom/matchers'
-import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 import { App } from '../App'
 import { BrowserRouter } from 'react-router-dom'
@@ -9,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { AppProvider, getInitialAppContext } from 'src/contexts/app.context'
 
-expect.extend(matchers)
 
 export const delay = (time: number) =>
   new Promise((resolve) => {
@@ -59,7 +54,6 @@ export const renderWithRouter = ({ route = '/' } = {}) => {
   window.history.pushState({}, 'Test page', route)
   const defaultAppContext = getInitialAppContext()
   return {
-    user: userEvent.setup(),
     ...render(
       <Provider>
         <AppProvider defaultValue={defaultAppContext}>

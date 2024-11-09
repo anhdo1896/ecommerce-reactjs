@@ -21,7 +21,7 @@ export default function Product({ product }: Props) {
         <div className='p-2 overflow-hidden'>
           <div className='min-h-[2rem] line-clamp-2 text-xs'>{product.name}</div>
           <div className='flex items-center mt-3'>
-            {product.priceBeforeDiscount !== product.price && (
+            {product.priceBeforeDiscount && product.priceBeforeDiscount !== product.price && (
               <div className='line-through max-w-[50%] text-gray-500 truncate'>
                 <span className='text-sm'>AUD</span>
                 <span className='text-sm'>{product.priceBeforeDiscount}</span>

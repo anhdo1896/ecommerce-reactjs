@@ -12,8 +12,13 @@ export const getAccessTokenFromLS = (key: string) => {
 
 export const removeAccessTokenFromLS = (key: string) => {
   localStorage.removeItem(key)
-
 }
+
+export const clearLS = () => {
+  localStorage.clear()
+  dispatchEventRemoveLS()
+}
+
 
 export const dispatchEventRemoveLS = () => {
     const clearLSEvent = new Event('clearLS')

@@ -1,5 +1,4 @@
 import CartHeader from "src/components/CartHeader";
-import Footer from "src/components/Footer";
 
 interface Props {
   children: React.ReactNode
@@ -7,10 +6,9 @@ interface Props {
 
 export default function CartLayout({ children }: Props) {
   return (
-    <div>
+    <>
       <CartHeader />
       {children}
-      <Footer/>
-    </div>
+    </>
   )
 }

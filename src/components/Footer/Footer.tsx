@@ -3,7 +3,7 @@ import { logo } from 'src/assets'
 
 export default function Footer() {
   return (
-    <div className='bg-neutral-100 py-16'>
+    <div className=' py-16'>
       <div className='container'>
         <div className='grid grid-cols-1 gap-4 lg:grid-cols-5'>
           <div className='lg:col-1'>
@@ -13,28 +13,37 @@ export default function Footer() {
           </div>
           <div className='lg:col-1'>
             <div className='flex flex-col'>
-              <span>About The Company Investors Careers at Aerometrex</span>
-              <span>Solutions 3D Modelling Aerial LiDAR MetroMap</span>
+              <h2 className='font-bold py-2'>About Us</h2>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Company info</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>News</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Careers</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Policy</Link>
+
             </div>
           </div>
           <div className='lg:col-1'>
             <div className='flex flex-col'>
-              <span>
-                Industries Architecture, Engineering & Construction Energy & Utilities Environment and Disaster
-                Management Events, Media & Entertainment Forestry & Agriculture Government Insurance & Financial
-                Services Natural Resources, Mining & Exploration Property & Real Estate Telecommunications Transport,
-                Logistics and Traffic Management
-              </span>
+              <h2 className='font-bold py-2'>Payment Info</h2>
+              <Link className='hover:text-pink-500 py-2' to='https://stripe.com/au'>Stripe Payments</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Stripe Payment Processing</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Security at Stripe</Link>
             </div>
           </div>
           <div className='lg:col-1'>
             <div className='flex flex-col'>
-              <span>Resources Blog Gallery Projects Webinars Newsroom FAQ's Contact us Switch to USA Site</span>
+              <h2 className='font-bold py-2'>Help & Contact</h2>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Your account</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Returns</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Assisstant</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Help</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Connect us</Link>
             </div>
           </div>
           <div className='lg:col-1'>
             <div className='flex flex-col'>
-              <span>Resources Blog Gallery Projects Webinars Newsroom FAQ's Contact us Switch to USA Site</span>
+              <h2 className='font-bold py-2'>Resource</h2>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Images</Link>
+              <Link className='hover:text-pink-500 py-2' to='https://anhdongoc.com'>Gallery</Link>
             </div>
           </div>
         </div>
