@@ -76,7 +76,8 @@ export default function ProductDetail() {
     }
   }
 
-  const handleZoom = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const handleZoom = () => {
+    // (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     // const rect = event.currentTarget.getBoundingClientRect()
     // const image = imageRef.current as HTMLImageElement
     // const { naturalHeight, naturalWidth, width, height } = image

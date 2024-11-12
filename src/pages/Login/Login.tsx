@@ -114,8 +114,9 @@ export default function Login() {
       </div>
       <div className='text-center m-5'>- OR - </div> */}
       <form className='text-[13px]' onSubmit={onSubmit} noValidate>
-        <Input type='email' name='email' placeholder='Email' register={register} errorMessage={errors.email?.message} />
+        <Input value={'anhdongoc18@gmail.com'} type='email' name='email' placeholder='Email' register={register} errorMessage={errors.email?.message} />
         <Input
+          value={'Admin@123'}
           name='password'
           type='password'
           placeholder='Password'

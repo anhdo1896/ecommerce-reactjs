@@ -11,7 +11,6 @@ import { isAxiosBadRequest } from 'src/utils/utils'
 import { ErrorResponseApi } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
-import Footer from 'src/components/Footer'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['password', 'email', 'confirm_password'])

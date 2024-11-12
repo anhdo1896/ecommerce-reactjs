@@ -181,8 +181,8 @@ export default function Cart() {
         {
           onSuccess: (data) => {
             const stripe: Stripe = {
-              cancelUrl: `${window.location.protocol}//${window.location.host}${path.historyPurchase}?status=${OrderStatusCode.Status_Cancelled}&canceled=true&orderId=${data.data.data.orderHeaderId}`,
-              approvedUrl: `${window.location.protocol}//${window.location.host}${path.historyPurchase}?status=${OrderStatusCode.Status_Approved}&success=true&orderId=${data.data.data.orderHeaderId}`,
+              cancelUrl: `${window.location.protocol}//${window.location.host}${path.home}?status=${OrderStatusCode.Status_Cancelled}&canceled=true&orderId=${data.data.data.orderHeaderId}`,
+              approvedUrl: `${window.location.protocol}//${window.location.host}${path.home}?status=${OrderStatusCode.Status_Approved}&success=true&orderId=${data.data.data.orderHeaderId}`,
               orderHeader: data.data.data
             }
 

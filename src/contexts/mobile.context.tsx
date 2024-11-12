@@ -1,7 +1,5 @@
 import React, { createContext, useState } from 'react'
-import localStorageConstants from 'src/constants/localStorage'
-import { User } from 'src/types/user.type'
-import { getAccessTokenFromLS } from 'src/utils/auth'
+
 
 interface MobileContextInterface {
   isSort: boolean

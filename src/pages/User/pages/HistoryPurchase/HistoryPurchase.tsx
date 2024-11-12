@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { createSearchParams, Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import orderApi from 'src/apis/order.api'
 import OrderStatusCode from 'src/constants/orderStatus.enum'
 import path from 'src/constants/path'
@@ -24,9 +23,8 @@ export default function HistoryPurchase() {
   const { profile, isAuthenticated } = useContext(AppContext)
   const queryParams: { status?: string } = useQueryParams()
   const status = queryParams.status || OrderStatusCode.Status_All
-  const [message, setMessage] = useState('')
 
-  const { data: orderData, refetch } = useQuery({
+  const { data: orderData } = useQuery({
     queryKey: ['order', { status }],
     queryFn: () => orderApi.getOrderStatus(profile?.id as string, status),
     enabled: isAuthenticated
@@ -34,38 +32,6 @@ export default function HistoryPurchase() {
 
   const orderDataStatus = orderData?.data.data
 
-  const validateStripeSessionMutation = useMutation({
-    mutationFn: (body: number) => orderApi.validateStripeSession(body)
-  })
-
-  const updateOrderStatus = useMutation({
-    mutationFn: (body: { orderId: number; newStatus: string }) =>
-      orderApi.updateorderstatus(body.orderId, body.newStatus)
-  })
-
-  useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search)
-
-    if (query.get('success')) {
-      const orderId = Number(query.get('orderId'))
-      validateStripeSessionMutation.mutate(orderId)
-      setMessage('Order succeeed')
-      toast.success('Order placed! You will receive an email confirmation.')
-    }
-
-    if (query.get('canceled')) {
-      const orderId = Number(query.get('orderId'))
-
-      setMessage("Order canceled -- continue to shop around and checkout when you're ready.")
-      updateOrderStatus.mutate({ orderId: orderId, newStatus: OrderStatusCode.Status_Cancelled })
-      toast.warning("Order canceled -- continue to shop around and checkout when you're ready.")
-    }
-  }, [])
-
-  useEffect(() => {
-    refetch()
-  }, [message])
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
       key={tab.status}

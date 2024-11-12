@@ -2,12 +2,11 @@ import axios, { AxiosError, type AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { AuthResponse, RefreshTokenResponse } from 'src/types/auth.type'
-import { clearLS, dispatchEventRemoveLS, getAccessTokenFromLS, saveAccessTokenFromLS } from './auth'
+import { clearLS, getAccessTokenFromLS, saveAccessTokenFromLS } from './auth'
 import localStorageConstants from 'src/constants/localStorage'
 import config from 'src/constants/config'
 import { URL_LOGIN, URL_LOGOUT, URL_REFRESH_TOKEN } from 'src/apis/auth.api'
 import { isAxiosUnauthorized } from './utils'
-import { ErrorResponseApi } from 'src/types/utils.type'
 import { ErrorResponse } from 'react-router-dom'
 
 export class Http {
@@ -22,7 +21,7 @@ export class Http {
     this.refreshTokenRequest = null
     this.instance = axios.create({
       baseURL: url,
-      timeout: 10000,
+      timeout: 50000,
       headers: {
         'Content-Type': 'application/json'
       }

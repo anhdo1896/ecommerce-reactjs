@@ -36,10 +36,10 @@ export default function NavHeader() {
           <div>
             <div className='bg-white shadow-md rounded-sm border border-gray-200'>
               <div className='flex flex-col py-2 pr-28 pl-3'>
-                <button className='py-2 px-3 hover:text-pink-500 text-left' onClick={() => changeLanguage('en')}>
+                <button className='py-2 px-3 hover:text-pink-500 text-left text-sm lg:text-base' onClick={() => changeLanguage('en')}>
                   English
                 </button>
-                <button className='py-2 px-3 hover:text-pink-500 mt-2 text-left' onClick={() => changeLanguage('vi')}>
+                <button className='py-2 px-3 hover:text-pink-500 mt-2 text-left text-sm lg:text-base' onClick={() => changeLanguage('vi')}>
                   Vietnamese
                 </button>
               </div>

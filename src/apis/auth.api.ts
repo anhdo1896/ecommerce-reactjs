@@ -1,4 +1,3 @@
-import path from 'src/constants/path'
 import { AuthResponse } from 'src/types/auth.type'
 import { ChangePassword, User, UserDetail } from 'src/types/user.type'
 import { SuccessResponseApi } from 'src/types/utils.type'

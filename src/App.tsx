@@ -13,6 +13,8 @@ export function App() {
   const routeElements = useRouteElements()
   const { reset } = useContext(AppContext)
 
+  useEffect(() => window.scrollTo(0, 0), []);
+
   useEffect(() => {
     LocalStorageEventTarget.addEventListener('clearLS', reset)
     return () => {
