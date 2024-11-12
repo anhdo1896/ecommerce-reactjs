@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import ProductRating from '../ProductRating'
-import { formatCurrency, formatNumberToSocialStyle, getIdFronNameId, rateSale } from 'src/utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, getIdFronNameId, rateSale, scrollToTopRefreshProduct } from 'src/utils/utils'
 import DOMPurify from 'dompurify'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Product as ProductType, ProductListConfig } from 'src/types/product.type'
@@ -53,6 +53,13 @@ export default function ProductDetail() {
   const addToCartMutation = useMutation({
     mutationFn: (body: Cart) => cartApi.addToCart(body)
   })
+
+  useEffect(() => {
+    scrollToTopRefreshProduct()
+    return () => {
+      window.removeEventListener('scroll', scrollToTopRefreshProduct)
+    }
+  });
 
   useEffect(() => {
     if (product && product.images.length > 0) {

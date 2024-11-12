@@ -42,3 +42,11 @@ export const getIdFronNameId = (nameId: string) => {
   const arr = nameId.split('-i-')
   return arr[arr.length - 1]
 }
+
+
+export const scrollToTopRefreshProduct = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  })
+}

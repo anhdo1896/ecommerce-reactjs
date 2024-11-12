@@ -15,6 +15,7 @@ import noproduct from 'src/assets/images/NO-PRODUCT.png'
 import orderApi from 'src/apis/order.api'
 import { toast } from 'react-toastify'
 import OrderStatusCode from 'src/constants/orderStatus.enum'
+import { scrollToTopRefreshProduct } from 'src/utils/utils'
 
 export default function ProductList() {
   const queryConfig = useQueryConfig()
@@ -55,6 +56,13 @@ export default function ProductList() {
     mutationFn: (body: { orderId: number; newStatus: string }) =>
       orderApi.updateorderstatus(body.orderId, body.newStatus)
   })
+
+  useEffect(() => {
+    scrollToTopRefreshProduct()
+    return () => {
+      window.removeEventListener('scroll', scrollToTopRefreshProduct)
+    }
+  });
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout

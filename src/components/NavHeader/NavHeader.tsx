@@ -29,7 +29,7 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex justify-end'>
+    <div className='flex justify-center sm:justify-center md:justify-end'>
       <Popover
         className='flex items-center py-1 hover:text-gray-300 cursor-pointer'
         renderPopover={
